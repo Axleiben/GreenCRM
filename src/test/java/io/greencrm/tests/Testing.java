@@ -1,21 +1,28 @@
 package io.greencrm.tests;
 
+
 import io.greencrm.pages.LoginPage;
 
 import io.greencrm.pages.SidebarPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
+
 
 import java.util.concurrent.TimeUnit;
 
-public class Testing {
-@Test
-    public void testPage(){
 
-                System.setProperty("webdriver.chrome.driver","C:\\Users\\Michał\\Downloads\\chromedriver_win32\\chromedriver.exe");
+public class Testing {
+    @Test
+    public void testPage() throws InterruptedException {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Michał\\Downloads\\chromedriver-win64\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(150, TimeUnit.SECONDS);
         ChromeOptions options = new ChromeOptions();
@@ -26,26 +33,27 @@ public class Testing {
         loginPage.logIn();
 
         SidebarPage sidebarPage = new SidebarPage(driver);
-        sidebarPage.openTaskPage();
-        sidebarPage.openOwnersPage();
         sidebarPage.openAgentsPage();
-        sidebarPage.opentradersPage();
-        sidebarPage.openAssemblersPage();
-        sidebarPage.openCustomersPage();
-        sidebarPage.openAgreementsPage();
-        sidebarPage.openInstallationsPage();
-        sidebarPage.openMaintenancePage();
-        sidebarPage.openCalendarPage();
-        sidebarPage.openCalendarPage();
-        sidebarPage.openTargetsPage();
-        sidebarPage.openProjectsPage();
-        sidebarPage.openFilesrepoPage();
-        sidebarPage.openSalesSettingsPage();
-        sidebarPage.openHelpPage();
-        sidebarPage.openContactPage();
-        sidebarPage.openDashboardPage();
+
+
+        WebElement statusList =  driver.findElement(By.className("ant-select-selection-search-input"));
+        statusList.click();
+         Select select = new Select(statusList);
+         select.selectByVisibleText("Aktywne");
+
+        System.out.println(statusList);
+
+
+
+        //AgentsPage agentsPage = new AgentsPage(driver);
+        //agentsPage.findAgent("Krupa");
+
+
+
+
+
+
+
 
     }
-
-
 }
