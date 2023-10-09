@@ -72,7 +72,7 @@ public class SidebarPage {
         agentsButton.click();
     }
 
-    public void opentradersPage(){
+    public void openTradersPage(){
         tradersButton.click();
     }
 
