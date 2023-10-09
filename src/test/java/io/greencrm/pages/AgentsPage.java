@@ -12,6 +12,7 @@ public class AgentsPage {
 
     @FindBy(name="fullName" )
     private WebElement findAgentInput;
+
     @FindBy(xpath = "//tr[2]/td[5]/div")
         private WebElement editButton;
 
