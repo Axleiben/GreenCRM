@@ -22,6 +22,7 @@ public class LoginPage {
     }
 
 
+
     public void logIn(){
         loginInput.sendKeys("Lila@wp.pl");
         passwordInput.sendKeys("Avocado1!");
