@@ -19,6 +19,22 @@ public class AgentsPage {
     @FindBy(className = "editItemBox_1uaU4'")
         private WebElement changeAccountStatusButton;
 
+    @FindBy(xpath ="//div/span[@class='ant-select-selection-search']" )
+        private WebElement statusDropdown;
+
+    @FindBy(xpath = "//div[@label='Aktywne']" )
+        private WebElement activeStatus;
+
+    @FindBy(xpath = "//div[@label='Nieaktywowane']" )
+    private WebElement inactiveStatus;
+
+    @FindBy(xpath = "//div[@label='Zablokowane']" )
+    private WebElement blockedStatus;
+
+    @FindBy(css = "button[class='ant-btn ant-btn-primary ant-btn-lg']")
+    private WebElement filterButton;
+
+
      public AgentsPage (WebDriver driver) {PageFactory.initElements(driver,this);}
 
     public void openNewAgentForm(){
@@ -27,8 +43,10 @@ public class AgentsPage {
     }
 
     public void findAgent(String agentName ){
+
          findAgentInput.sendKeys(agentName);
     }
+
 
     public void openAgentEditForm(){
 
@@ -38,5 +56,26 @@ public class AgentsPage {
     public void openAccountChangeStatusWindow(){
 
          changeAccountStatusButton.click();
+    }
+
+    public void searchingStatus(String status){
+         statusDropdown.click();
+
+         switch(status){
+             case "Aktywne":
+                 activeStatus.click();
+                break;
+             case "Nieakatywne":
+                 inactiveStatus.click();
+                 break;
+             case "Zablokowane":
+                 blockedStatus.click();
+                 break;
+             default:
+                 System.out.println("Zła nazwa statusu");
+                 break;
+         }
+
+        filterButton.click();
     }
 }

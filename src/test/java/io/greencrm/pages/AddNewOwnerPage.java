@@ -41,7 +41,6 @@ public class AddNewOwnerPage {
     public void setPhoneNumberInput  (String phoneNumber){
         phoneNumberInput.sendKeys(phoneNumber);
     }
-
     public void setSendEmailChceckbox  (){
         sendEmailChceckbox.click();
     }

@@ -24,7 +24,7 @@ public class LoginPage {
 
 
     public void logIn(){
-        loginInput.sendKeys("Lila@wp.pl");
+        loginInput.sendKeys("cenniksolin@www.pa");
         passwordInput.sendKeys("Avocado1!");
         loginButton.click();
     }

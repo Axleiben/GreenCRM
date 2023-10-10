@@ -1,52 +1,48 @@
 package io.greencrm.tests;
 
+import io.greencrm.pages.*;
 
-import io.greencrm.pages.LoginPage;
-
-import io.greencrm.pages.SidebarPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 
-
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
 public class Testing {
-    @Test
-    public void testPage() throws InterruptedException {
+@Test
+    public void testPage(){
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Michał\\Downloads\\chromedriver-win64\\chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(150, TimeUnit.SECONDS);
+
         ChromeOptions options = new ChromeOptions();
-        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
-        driver.get("https://test.greencrm.dev/");
+        options.setPageLoadStrategy(PageLoadStrategy.NONE);
+
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get("https://test.greencrm.dev");
+        driver.manage().window().maximize();
+
 
         LoginPage loginPage = new LoginPage(driver);
+        SidebarPage sidebarPage = new SidebarPage(driver);
+
         loginPage.logIn();
 
-        SidebarPage sidebarPage = new SidebarPage(driver);
-        sidebarPage.openAgentsPage();
+        //driver.findElement(By.cssSelector("a[href='/agents']")).click();
 
+       sidebarPage.openAgentsPage();
 
-        WebElement statusList =  driver.findElement(By.className("ant-select-selection-search-input"));
-        statusList.click();
-         Select select = new Select(statusList);
-         select.selectByVisibleText("Aktywne");
-
-        System.out.println(statusList);
+    List<WebElement> editLinks = driver.findElements(By.xpath("//tbody//td[contains(@class, 'hyperlink') and text()='Edytuj']"));
 
 
 
-        //AgentsPage agentsPage = new AgentsPage(driver);
-        //agentsPage.findAgent("Krupa");
+        //driver.findElements(By.xpath("//tbody/tr/td")).stream().filter(el -> el.isDisplayed()).findAny();
+
 
 
 
@@ -56,4 +52,7 @@ public class Testing {
 
 
     }
+
+
+
 }
