@@ -37,7 +37,7 @@ public class Testing {
 
        sidebarPage.openAgentsPage();
 
-    List<WebElement> editLinks = driver.findElements(By.xpath("//tbody//td[contains(@class, 'hyperlink') and text()='Edytuj']"));
+    driver.findElements(By.xpath("//tbody/tr/td/div[@class='hyperlink']")).stream().findFirst().ifPresent(WebElement::click);
 
 
 
