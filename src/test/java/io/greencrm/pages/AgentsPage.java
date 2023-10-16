@@ -34,6 +34,9 @@ public class AgentsPage {
     @FindBy(css = "button[class='ant-btn ant-btn-primary ant-btn-lg']")
     private WebElement filterButton;
 
+    @FindBy(xpath = "//tbody/tr/td/div[text()='Edytuj']")
+    private WebElement editAgentButton;
+
 
      public AgentsPage (WebDriver driver) {PageFactory.initElements(driver,this);}
 
@@ -61,21 +64,17 @@ public class AgentsPage {
     public void searchingStatus(String status){
          statusDropdown.click();
 
-         switch(status){
-             case "Aktywne":
-                 activeStatus.click();
-                break;
-             case "Nieakatywne":
-                 inactiveStatus.click();
-                 break;
-             case "Zablokowane":
-                 blockedStatus.click();
-                 break;
-             default:
-                 System.out.println("Zła nazwa statusu");
-                 break;
-         }
+        switch (status) {
+            case "Aktywne" -> activeStatus.click();
+            case "Nieakatywne" -> inactiveStatus.click();
+            case "Zablokowane" -> blockedStatus.click();
+            default -> System.out.println("Zła nazwa statusu");
+        }
 
         filterButton.click();
+    }
+
+    public void openEditForm (){
+         editAgentButton.click();
     }
 }

@@ -1,17 +1,15 @@
 package io.greencrm.tests;
 
 import io.greencrm.pages.*;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.Test;
-
-import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.interactions.Actions;
+
+
 
 public class Testing {
 @Test
@@ -37,11 +35,13 @@ public class Testing {
 
        sidebarPage.openAgentsPage();
 
-    driver.findElements(By.xpath("//tbody/tr/td/div[@class='hyperlink']")).stream().findFirst().ifPresent(WebElement::click);
+    //driver.findElements(By.xpath("//tbody/tr/td/div[text()='Edytuj']")).stream().findFirst().ifPresent(WebElement::click);
+        AgentsPage agentsPage = new AgentsPage(driver);
+
+        agentsPage.openEditForm();
 
 
 
-        //driver.findElements(By.xpath("//tbody/tr/td")).stream().filter(el -> el.isDisplayed()).findAny();
 
 
 
