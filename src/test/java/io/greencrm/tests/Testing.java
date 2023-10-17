@@ -19,18 +19,18 @@ import org.openqa.selenium.interactions.Actions;
 
 
 public class Testing {
-@Test
+    @Test
     public void testPage(){
 
 
         ChromeOptions options = new ChromeOptions();
-        options.setPageLoadStrategy(PageLoadStrategy.NONE);
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
 
-         WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         driver.get("https://test.greencrm.dev");
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
 
 
         LoginPage loginPage = new LoginPage(driver);
@@ -38,9 +38,8 @@ public class Testing {
         AgentsPage agentsPage = new AgentsPage(driver);
         Actions actions =  new Actions(driver);
         loginPage.logIn();
-       sidebarPage.openAgentsPage();
-
-       agentsPage.searchingStatus("Aktywne");
+        sidebarPage.openAgentsPage();
+        agentsPage.setActiveStatus();
 
 
 
@@ -54,7 +53,7 @@ public class Testing {
 //
 //   driver.findElements(By.xpath("//tbody/tr/td/div/span[@aria-label='edit']")).stream().findFirst().ifPresent(WebElement::click);
 
-}
+    }
 
 
 

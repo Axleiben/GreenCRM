@@ -14,22 +14,19 @@ import java.util.List;
 public class AgentsPage {
 
     @FindBy(xpath ="//button/span[text()=\"Dodaj nowego agenta\"]" )
-        private WebElement addNewAgentButton;
+    private WebElement addNewAgentButton;
 
     @FindBy(name="fullName" )
     private WebElement findAgentInput;
 
     @FindBy(xpath = "//tr[2]/td[5]/div")
-        private WebElement editButton;
-
-    @FindBy(className = "editItemBox_1uaU4'")
-        private WebElement changeAccountStatusButton;
+    private WebElement editButton;
 
     @FindBy(xpath ="//div/span[@class='ant-select-selection-search']" )
-        private WebElement statusDropdown;
+    private WebElement statusDropdown;
 
     @FindBy(xpath = "//div[@label='Aktywne']" )
-        private WebElement activeStatus;
+    private WebElement activeStatus;
 
     @FindBy(xpath = "//div[@label='Nieaktywowane']" )
     private WebElement inactiveStatus;
@@ -49,38 +46,39 @@ public class AgentsPage {
     @FindBy (xpath = "//tbody/tr/td/div/span[@aria-label='edit']")
     private List  <WebElement> statusEditButton;
 
+    @FindBy (css = "button.ant-btn.ant-btn-link")
+    private WebElement switchStatusButton;
+
+    @FindBy(css =".ant-modal-content")
+    private WebElement modalWindow;
+
+
     private WebDriver driver;
 
-
-
-     public AgentsPage (WebDriver driver) {
-         PageFactory.initElements(driver,this);
-         this.driver = driver;
-     }
+    public AgentsPage (WebDriver driver) {
+        PageFactory.initElements(driver,this);
+        this.driver = driver;
+    }
 
     public void openNewAgentForm(){
 
-         addNewAgentButton.click();
+        addNewAgentButton.click();
     }
 
     public void findAgent(String agentName ){
 
-         findAgentInput.sendKeys(agentName);
+        findAgentInput.sendKeys(agentName);
     }
 
 
     public void openAgentEditForm(){
 
-         editButton.click();
+        editButton.click();
     }
 
-    public void openAccountChangeStatusWindow(){
-
-         changeAccountStatusButton.click();
-    }
 
     public void searchingStatus(String status){
-         statusDropdown.click();
+        statusDropdown.click();
 
         switch (status) {
             case "Aktywne" -> activeStatus.click();
@@ -93,16 +91,36 @@ public class AgentsPage {
     }
 
     public void openEditForm (){
-         editAgentButton.click();
+        editAgentButton.click();
     }
 
-    public void openStatusWindow(){
+    public void setActiveStatus(){
+
         Actions actions = new Actions(driver);
+
         statusLabel.stream().findFirst().
                 ifPresent(e -> actions.moveToElement(e).perform());
 
         statusEditButton.stream().findFirst()
                 .ifPresent(WebElement::click);
+        if(modalWindow.getText().contains("Konto jest aktywne")) {
+            System.out.println("Konto jest aktywne nie trzeba go zmieniać");
+        }
+            else{switchStatusButton.click();}
 
+    }
+    public void setBlockedStatus(){
+
+        Actions actions = new Actions(driver);
+
+        statusLabel.stream().findFirst().
+                ifPresent(e -> actions.moveToElement(e).perform());
+
+        statusEditButton.stream().findFirst()
+                .ifPresent(WebElement::click);
+        if(modalWindow.getText().contains("Konto jest zablokowane")) {
+            System.out.println("Konto jest zablokowane nie trzeba go zmieniać");
+        }
+        else{switchStatusButton.click();}
     }
 }
