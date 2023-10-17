@@ -1,6 +1,6 @@
 package io.greencrm.pages;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,7 +24,7 @@ public class LoginPage {
 
 
     public void logIn(){
-        loginInput.sendKeys("Lila@wp.pl");
+        loginInput.sendKeys("cenniksolin@www.pa");
         passwordInput.sendKeys("Avocado1!");
         loginButton.click();
     }

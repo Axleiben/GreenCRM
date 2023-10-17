@@ -1,9 +1,15 @@
 package io.greencrm.pages;
 
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
+
 
 public class AgentsPage {
 
@@ -12,13 +18,45 @@ public class AgentsPage {
 
     @FindBy(name="fullName" )
     private WebElement findAgentInput;
+
     @FindBy(xpath = "//tr[2]/td[5]/div")
         private WebElement editButton;
 
     @FindBy(className = "editItemBox_1uaU4'")
         private WebElement changeAccountStatusButton;
 
-     public AgentsPage (WebDriver driver) {PageFactory.initElements(driver,this);}
+    @FindBy(xpath ="//div/span[@class='ant-select-selection-search']" )
+        private WebElement statusDropdown;
+
+    @FindBy(xpath = "//div[@label='Aktywne']" )
+        private WebElement activeStatus;
+
+    @FindBy(xpath = "//div[@label='Nieaktywowane']" )
+    private WebElement inactiveStatus;
+
+    @FindBy(xpath = "//div[@label='Zablokowane']" )
+    private WebElement blockedStatus;
+
+    @FindBy(css = "button[class='ant-btn ant-btn-primary ant-btn-lg']")
+    private WebElement filterButton;
+
+    @FindBy(xpath = "//tbody/tr/td/div[text()='Edytuj']")
+    private WebElement editAgentButton;
+
+    @FindBy(xpath = "//tbody/tr/td/div/span[@class='editItemText_e7aMq']")
+    private List<WebElement> statusLabel;
+
+    @FindBy (xpath = "//tbody/tr/td/div/span[@aria-label='edit']")
+    private List  <WebElement> statusEditButton;
+
+    private WebDriver driver;
+
+
+
+     public AgentsPage (WebDriver driver) {
+         PageFactory.initElements(driver,this);
+         this.driver = driver;
+     }
 
     public void openNewAgentForm(){
 
@@ -26,8 +64,10 @@ public class AgentsPage {
     }
 
     public void findAgent(String agentName ){
+
          findAgentInput.sendKeys(agentName);
     }
+
 
     public void openAgentEditForm(){
 
@@ -37,5 +77,32 @@ public class AgentsPage {
     public void openAccountChangeStatusWindow(){
 
          changeAccountStatusButton.click();
+    }
+
+    public void searchingStatus(String status){
+         statusDropdown.click();
+
+        switch (status) {
+            case "Aktywne" -> activeStatus.click();
+            case "Nieakatywne" -> inactiveStatus.click();
+            case "Zablokowane" -> blockedStatus.click();
+            default -> System.out.println("Zła nazwa statusu");
+        }
+
+        filterButton.click();
+    }
+
+    public void openEditForm (){
+         editAgentButton.click();
+    }
+
+    public void openStatusWindow(){
+        Actions actions = new Actions(driver);
+        statusLabel.stream().findFirst().
+                ifPresent(e -> actions.moveToElement(e).perform());
+
+        statusEditButton.stream().findFirst()
+                .ifPresent(WebElement::click);
+
     }
 }
