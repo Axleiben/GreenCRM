@@ -30,7 +30,7 @@ public class Testing {
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         driver.get("https://test.greencrm.dev");
-        //driver.manage().window().maximize();
+        driver.manage().window().maximize();
 
 
         LoginPage loginPage = new LoginPage(driver);
@@ -39,7 +39,7 @@ public class Testing {
         Actions actions =  new Actions(driver);
         loginPage.logIn();
         sidebarPage.openAgentsPage();
-        agentsPage.setActiveStatus();
+        agentsPage.setBlockedStatus();
 
 
 

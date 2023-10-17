@@ -52,6 +52,8 @@ public class AgentsPage {
     @FindBy(css =".ant-modal-content")
     private WebElement modalWindow;
 
+    @FindBy(xpath = "//span[text()='Zapisz']")
+    private WebElement submit;
 
     private WebDriver driver;
 
@@ -103,10 +105,14 @@ public class AgentsPage {
 
         statusEditButton.stream().findFirst()
                 .ifPresent(WebElement::click);
-        if(modalWindow.getText().contains("Konto jest aktywne")) {
+        if(modalWindow.getText().contains("Konto jest aktywne"))
+        {
             System.out.println("Konto jest aktywne nie trzeba go zmieniać");
         }
-            else{switchStatusButton.click();}
+            else
+            {switchStatusButton.click();
+            submit.click();
+            }
 
     }
     public void setBlockedStatus(){
@@ -118,9 +124,13 @@ public class AgentsPage {
 
         statusEditButton.stream().findFirst()
                 .ifPresent(WebElement::click);
-        if(modalWindow.getText().contains("Konto jest zablokowane")) {
+        if(modalWindow.getText().contains("Konto jest zablokowane"))
+        {
             System.out.println("Konto jest zablokowane nie trzeba go zmieniać");
         }
-        else{switchStatusButton.click();}
+        else{
+            switchStatusButton.click();
+            submit.click();
+        }
     }
 }
