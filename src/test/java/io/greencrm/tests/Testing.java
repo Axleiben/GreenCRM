@@ -1,26 +1,22 @@
 package io.greencrm.tests;
 
-import io.greencrm.pages.*;
-import org.checkerframework.checker.units.qual.A;
-import org.openqa.selenium.By;
+import io.greencrm.pages.AgentsPage;
+import io.greencrm.pages.LoginPage;
+import io.greencrm.pages.SidebarPage;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.interactions.Actions;
 
 
 
 public class Testing {
     @Test
-    public void testPage(){
+    public void testPage() throws InterruptedException {
 
 
         ChromeOptions options = new ChromeOptions();
@@ -28,7 +24,7 @@ public class Testing {
 
 
         WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://test.greencrm.dev");
         driver.manage().window().maximize();
 
@@ -39,7 +35,7 @@ public class Testing {
         Actions actions =  new Actions(driver);
         loginPage.logIn();
         sidebarPage.openAgentsPage();
-        agentsPage.setBlockedStatus();
+        agentsPage.setActiveStatus();
 
 
 
