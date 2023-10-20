@@ -53,8 +53,8 @@ public class AgentsPage {
     @FindBy(css = "button.ant-btn.ant-btn-link")
     private WebElement switchStatusButton;
 
-    @FindBy(xpath = "//div[@class='ant-col ant-col-14']/span[last()]")
-    private WebElement modalWindow;
+
+    private String statusText= "//div[@class='ant-col ant-col-14']/span[last()]";
 
     @FindBy(xpath = "//span[text()='Zapisz']")
     private WebElement submit;
@@ -112,31 +112,16 @@ public class AgentsPage {
                 .ifPresent(WebElement::click);
 
         String text = wait.until(ExpectedConditions.visibilityOfElementLocated
-                        (By.xpath("//div[@class='ant-col ant-col-14']/span[last()]")))
+                        (By.xpath(String.valueOf(statusText))))
                 .getText();
 
         if (text.equalsIgnoreCase("Konto jest aktywne")) {
             System.out.println("Konto jest aktywne nie trzeba go zmieniać");
         } else {
-             switchStatusButton.click();
-             submit.click();
-        }
-    }
-
-    public void setBlockedStatus() {
-
-        Actions actions = new Actions(driver);
-
-        statusLabel.stream().findFirst().
-                ifPresent(e -> actions.moveToElement(e).perform());
-
-        statusEditButton.stream().findFirst()
-                .ifPresent(WebElement::click);
-        if (modalWindow.getText().equals("aktywne")) {
-            System.out.println("Konto jest zablokowane nie trzeba go zmieniać");
-        } else {
             switchStatusButton.click();
             submit.click();
         }
     }
+
+
 }
