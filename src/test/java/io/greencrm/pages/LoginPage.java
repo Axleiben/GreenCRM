@@ -24,7 +24,7 @@ public class LoginPage {
 
 
     public void logIn(){
-        loginInput.sendKeys("cenniksolin@www.pa");
+        loginInput.sendKeys("sedivoy103@dmtubes.com");
         passwordInput.sendKeys("Avocado1!");
         loginButton.click();
     }
