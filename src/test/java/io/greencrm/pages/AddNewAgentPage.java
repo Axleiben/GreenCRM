@@ -51,11 +51,45 @@ public class AddNewAgentPage {
     public void clickOnSubmitButton(){
         submitButton.click();
     }
+
+    public void setFirstName(){
+        firstNameInput.sendKeys();
+    }
+
+    public void setLastName(){
+        lastNameInput.sendKeys();
+    }
+
+    public void setPhoneNumber(){
+        phoneNumberInput.sendKeys();
+    }
+
+    public void setEmail(){
+        emailInput.sendKeys();
+    }
+
+
     public void fillAgentForm(String firstName, String lastName, String email, String phoneNumber) {
         firstNameInput.sendKeys(firstName);
         lastNameInput.sendKeys(lastName);
         emailInput.sendKeys(email);
         phoneNumberInput.sendKeys(phoneNumber);
+        submitButton.click();
+    }
+
+    public void fillAgentForm(String firstName, String lastName, String email) {
+        firstNameInput.sendKeys(firstName);
+        lastNameInput.sendKeys(lastName);
+        emailInput.sendKeys(email);
+        submitButton.click();
+    }
+    public void fillAgentForm(String firstName, String lastName) {
+        firstNameInput.sendKeys(firstName);
+        lastNameInput.sendKeys(lastName);
+        submitButton.click();
+    }
+    public void fillAgentForm(String firstName) {
+        firstNameInput.sendKeys(firstName);
         submitButton.click();
     }
 }
