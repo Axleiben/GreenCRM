@@ -8,6 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
+import org.testng.asserts.SoftAssert;
 
 import java.util.concurrent.TimeUnit;
 
@@ -58,14 +60,17 @@ public class AddNewAgentTest {
         agentsPage.openNewAgentForm();
 
         addNewAgentPage.setFirstName("Marek");
-        addNewAgentPage.setLastName("Kondrat");
+        //addNewAgentPage.setLastName("Kondrat");
         addNewAgentPage.setEmail("aaa@wp.pl");
+        addNewAgentPage.setPhoneNumber("100200300");
         addNewAgentPage.clickOnSubmitButton();
 
-        String validation = setting.getFirefoxDriver().findElement(By.className("ant-col.ant-form-item-control")).getText();
-        System.out.println(validation);
+        ////String validation = setting.getFirefoxDriver().findElement(By.className("ant-col.ant-form-item-control")).getText();
+        ///System.out.println(validation);
+        String element =   setting.getFirefoxDriver().findElement(By.xpath("//div[@role='alert']")).getText();
 
-       // Assert.assertEquals("Operacja powiodła się",validation);
+        System.out.println(element);
+        Assert.assertEquals("Pole jest wymagane",element);
 
     }
 }
