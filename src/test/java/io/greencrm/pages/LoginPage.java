@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage {
 
     @FindBy(id="login_email")
-            private WebElement loginInput;
+    private WebElement loginInput;
 
     @FindBy(id = "login_password")
     private WebElement passwordInput;
@@ -24,8 +24,8 @@ public class LoginPage {
 
 
     public void logIn(){
-        loginInput.sendKeys("cenniksolin@www.pa");
-        passwordInput.sendKeys("Avocado1!");
-        loginButton.click();
+        this.loginInput.sendKeys("cenniksolin@www.pa");
+        this.passwordInput.sendKeys("Avocado1!");
+        this.loginButton.click();
     }
 }

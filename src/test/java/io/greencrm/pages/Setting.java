@@ -2,10 +2,9 @@ package io.greencrm.pages;
 
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.BeforeTest;
-
-import java.time.Duration;
+import org.testng.annotations.AfterTest;
 import java.util.concurrent.TimeUnit;
 
 public class Setting {
@@ -22,6 +21,18 @@ public class Setting {
         firefoxDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
     }
+
+    public void chromeSetting(WebDriver chromedriver){
+
+        chromedriver.get(test);
+        chromedriver.manage().window().maximize();
+
+        ChromeOptions options = new ChromeOptions();
+        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+        chromedriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+    }
+    @AfterTest
     public void quit(WebDriver firefoxDriver){
         firefoxDriver.quit();
     }
