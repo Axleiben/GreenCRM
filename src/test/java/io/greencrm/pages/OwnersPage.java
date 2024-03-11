@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class OwnersPage {
 
-    @FindBy(css = "[class='ant-btn ant-btn-primary ant-btn-lg reportMobileButtons_Iyadf']")
+    @FindBy(xpath = "//button/span[text()=\"Dodaj nowego właściciela\"]")
     private WebElement addNewOwnerButton;
 
     @FindBy( css="[class='icon-green']")

@@ -1,6 +1,6 @@
 package io.greencrm.pages;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage {
 
     @FindBy(id="login_email")
-            private WebElement loginInput;
+    private WebElement loginInput;
 
     @FindBy(id = "login_password")
     private WebElement passwordInput;
@@ -17,6 +17,8 @@ public class LoginPage {
     @FindBy(css ="[class='ant-btn ant-btn-primary ant-btn-lg button_3va6S']")
     private WebElement loginButton;
 
+    @FindBy(className = "ant-notification-close-x")
+    private WebElement closeNotificationButton;
     public LoginPage(WebDriver driver){
         PageFactory.initElements(driver,this);
     }
@@ -24,8 +26,9 @@ public class LoginPage {
 
 
     public void logIn(){
-        loginInput.sendKeys("Lila@wp.pl");
-        passwordInput.sendKeys("Avocado1!");
-        loginButton.click();
+        this.loginInput.sendKeys("cenniksolin@www.pa");
+        this.passwordInput.sendKeys("Avocado1!");
+        this.loginButton.click();
+        this.closeNotificationButton.click();
     }
 }

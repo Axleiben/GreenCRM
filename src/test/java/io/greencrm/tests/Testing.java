@@ -1,59 +1,65 @@
 package io.greencrm.tests;
 
+import io.greencrm.pages.*;
 
-import io.greencrm.pages.LoginPage;
-
-import io.greencrm.pages.SidebarPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
+
+
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.firefox.*;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
+import org.testng.asserts.*;
 
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+import java.util.Set;
+
+import static java.lang.Thread.sleep;
 
 
-public class Testing {
-    @Test
-    public void testPage() throws InterruptedException {
-
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Michał\\Downloads\\chromedriver-win64\\chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(150, TimeUnit.SECONDS);
-        ChromeOptions options = new ChromeOptions();
-        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
-        driver.get("https://test.greencrm.dev/");
-
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.logIn();
-
-        SidebarPage sidebarPage = new SidebarPage(driver);
-        sidebarPage.openAgentsPage();
+public class Testing extends Setting  {
+@Test
+    public void testPage()  {
 
 
-        WebElement statusList =  driver.findElement(By.className("ant-select-selection-search-input"));
-        statusList.click();
-         Select select = new Select(statusList);
-         select.selectByVisibleText("Aktywne");
+    WebDriver firefoxDriver = new FirefoxDriver();
 
-        System.out.println(statusList);
+    firefoxSetting(firefoxDriver);
 
 
+    LoginPage loginPage = new LoginPage(firefoxDriver);
+    SidebarPage sidebarPage = new SidebarPage(firefoxDriver);
+    AgentsPage agentsPage = new AgentsPage(firefoxDriver);
+    AddNewAgentPage addNewAgentPage = new AddNewAgentPage(firefoxDriver);
 
-        //AgentsPage agentsPage = new AgentsPage(driver);
-        //agentsPage.findAgent("Krupa");
 
+    loginPage.logIn();
+    WebElement a = firefoxDriver.findElement(By.className("ant-notification-close-x"));
+    a.click();
+    sidebarPage.openAgentsPage();
+    agentsPage.openNewAgentForm();
+    addNewAgentPage.fillNewAgentForm("Jan","Kowalski", "example@wp.pls","1000200300");
+    addNewAgentPage.markSendEmailChceckbox();
+    addNewAgentPage.submittingNewAgentForm();
 
+    WebDriverWait wait = new WebDriverWait(firefoxDriver, Duration.ofSeconds(2));
+    WebElement notification = firefoxDriver.findElement(By.className("ant-notification-notice-description"));
 
+    String notificationText = notification.getText();
 
+    System.out.println(notificationText);
+    Assertion assertion = new Assertion();
+   assertion.assertEquals(notificationText,"Podany e-mail istnieje już w systemie");
 
 
 
 
     }
+
+
+
 }
