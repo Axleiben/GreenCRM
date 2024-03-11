@@ -17,6 +17,8 @@ public class LoginPage {
     @FindBy(css ="[class='ant-btn ant-btn-primary ant-btn-lg button_3va6S']")
     private WebElement loginButton;
 
+    @FindBy(className = "ant-notification-close-x")
+    private WebElement closeNotificationButton;
     public LoginPage(WebDriver driver){
         PageFactory.initElements(driver,this);
     }
@@ -27,5 +29,6 @@ public class LoginPage {
         this.loginInput.sendKeys("cenniksolin@www.pa");
         this.passwordInput.sendKeys("Avocado1!");
         this.loginButton.click();
+        this.closeNotificationButton.click();
     }
 }

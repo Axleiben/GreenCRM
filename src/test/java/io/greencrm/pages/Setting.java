@@ -32,9 +32,11 @@ public class Setting {
         chromedriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
     }
-    @AfterTest
+
     public void quit(WebDriver firefoxDriver){
         firefoxDriver.quit();
     }
+
+
 
 }
