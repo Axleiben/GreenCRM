@@ -6,7 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+
+public class LoginPage  extends BasePage{
 
     @FindBy(id="login_email")
     private WebElement loginInput;
@@ -18,17 +19,36 @@ public class LoginPage {
     private WebElement loginButton;
 
     @FindBy(className = "ant-notification-close-x")
-    private WebElement closeNotificationButton;
-    public LoginPage(WebDriver driver){
-        PageFactory.initElements(driver,this);
-    }
+    private WebElement notification;
 
+
+
+    protected final String login ="Melania@wp.pl";
+    protected final String password ="Avocado1357!#";
+
+    public LoginPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver,this);
+
+    }
 
 
     public void logIn(){
-        this.loginInput.sendKeys("cenniksolin@www.pa");
-        this.passwordInput.sendKeys("Avocado1!");
+        this.loginInput.sendKeys(login);
+        this.passwordInput.sendKeys(password);
         this.loginButton.click();
-        this.closeNotificationButton.click();
+        this.notification.click();
     }
+
+    public void setLogin(String login){
+        this.loginInput.sendKeys(login);
+    }
+
+    public void setPassword(String password){
+        this.passwordInput.sendKeys(password);
+    }
+    public void loginButton(){
+        loginButton.click();
+    }
+
 }

@@ -2,43 +2,47 @@ package io.greencrm.tests;
 
 import io.greencrm.pages.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.*;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import org.testng.asserts.*;
 
 
 import java.time.Duration;
-import java.util.Set;
-
-import static java.lang.Thread.sleep;
 
 
-public class Testing extends Setting  {
-@Test
+
+public class Testing   {
+
+    WebDriver driver;
+    @BeforeEach
+    public void setup()
+    {  WebDriver driver = new ChromeDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    }
+    @Test
+
     public void testPage()  {
 
 
-    WebDriver firefoxDriver = new FirefoxDriver();
-
-    firefoxSetting(firefoxDriver);
 
 
-    LoginPage loginPage = new LoginPage(firefoxDriver);
-    SidebarPage sidebarPage = new SidebarPage(firefoxDriver);
-    AgentsPage agentsPage = new AgentsPage(firefoxDriver);
-    AddNewAgentPage addNewAgentPage = new AddNewAgentPage(firefoxDriver);
+    LoginPage loginPage = new LoginPage(driver);
+    SidebarPage sidebarPage = new SidebarPage(driver);
+    AgentsPage agentsPage = new AgentsPage(driver);
+    AddNewAgentPage addNewAgentPage = new AddNewAgentPage(driver);
 
 
     loginPage.logIn();
-    WebElement a = firefoxDriver.findElement(By.className("ant-notification-close-x"));
+    WebElement a = driver.findElement(By.className("ant-notification-close-x"));
     a.click();
     sidebarPage.openAgentsPage();
     agentsPage.openNewAgentForm();
@@ -46,8 +50,8 @@ public class Testing extends Setting  {
     addNewAgentPage.markSendEmailChceckbox();
     addNewAgentPage.submittingNewAgentForm();
 
-    WebDriverWait wait = new WebDriverWait(firefoxDriver, Duration.ofSeconds(2));
-    WebElement notification = firefoxDriver.findElement(By.className("ant-notification-notice-description"));
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+    WebElement notification = driver.findElement(By.className("ant-notification-notice-description"));
 
     String notificationText = notification.getText();
 
