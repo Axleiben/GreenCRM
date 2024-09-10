@@ -1,34 +1,35 @@
 package io.greencrm.tests;
 
 import io.greencrm.pages.*;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
 
-import java.io.IOException;
-import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public class AddNewAgentTest {
 
     WebDriver driver;
     @BeforeEach
     public void setup()
-    {  WebDriver driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    {  ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--disable-search-engine-choice-screen");
+        chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        driver = new ChromeDriver(chromeOptions);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
 
-   @Test
-    public void emailExistsTest()  {
+  @Test
+ public void emailExistsTest()  {
 
 
         LoginPage loginPage = new LoginPage(driver);

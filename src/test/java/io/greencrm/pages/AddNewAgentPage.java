@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AddNewAgentPage  {
+public class AddNewAgentPage extends BasePage {
     @FindBy(name ="firstName")
     private WebElement firstNameInput;
 
@@ -25,6 +25,7 @@ public class AddNewAgentPage  {
     private WebElement submitButton;
 
     public AddNewAgentPage (WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver,this);}
 
     public void fillNewAgentForm(String firstName, String lastName, String email, String phoneNumber ) {

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class SidebarPage {
+public class SidebarPage extends BasePage {
 
     @FindBy(css ="a[href='/tasks']")
     private WebElement taskButton;
@@ -58,7 +58,9 @@ public class SidebarPage {
     @FindBy(css ="a[href='/dashboard']")
     private WebElement dashboardButton;
 
-    public  SidebarPage(WebDriver driver) {PageFactory.initElements(driver,this);}
+    public  SidebarPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements( driver,this);}
 
     public void openTaskPage(){
         taskButton.click();

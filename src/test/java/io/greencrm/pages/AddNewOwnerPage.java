@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AddNewOwnerPage {
+public class AddNewOwnerPage extends BasePage {
 
     @FindBy (css = "input[name=firstName]")
     private WebElement firstNameInput;
@@ -27,6 +27,7 @@ public class AddNewOwnerPage {
 
 
     public  AddNewOwnerPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);}
 
     public void setFirstName (String firstName){

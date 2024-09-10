@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AgentsPage {
+public class AgentsPage extends BasePage {
 
     @FindBy(xpath ="//button/span[text()=\"Dodaj nowego agenta\"]" )
         private WebElement addNewAgentButton;
@@ -35,7 +35,9 @@ public class AgentsPage {
     private WebElement filterButton;
 
 
-     public AgentsPage (WebDriver driver) {PageFactory.initElements(driver,this);}
+     public AgentsPage (WebDriver driver) {
+         super(driver);
+         PageFactory.initElements(driver,this);}
 
     public void openNewAgentForm(){
 
