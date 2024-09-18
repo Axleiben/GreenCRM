@@ -39,7 +39,7 @@ public class AgentsPage extends BasePage {
          super(driver);
          PageFactory.initElements(driver,this);}
 
-    public void openNewAgentForm(){
+    public void goToNewAgentForm(){
 
          addNewAgentButton.click();
     }

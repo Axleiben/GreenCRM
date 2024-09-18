@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.*;
 
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -44,8 +43,8 @@ public class Testing   {
     loginPage.logIn();
     WebElement a = driver.findElement(By.className("ant-notification-close-x"));
     a.click();
-    sidebarPage.openAgentsPage();
-    agentsPage.openNewAgentForm();
+    sidebarPage.goToAgentsPage();
+    agentsPage.goToNewAgentForm();
     addNewAgentPage.fillNewAgentForm("Jan","Kowalski", "example@wp.pls","1000200300");
     addNewAgentPage.markSendEmailChceckbox();
     addNewAgentPage.submittingNewAgentForm();

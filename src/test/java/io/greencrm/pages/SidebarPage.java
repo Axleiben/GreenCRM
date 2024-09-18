@@ -70,7 +70,7 @@ public class SidebarPage extends BasePage {
         ownersButton.click();
     }
 
-    public void openAgentsPage(){
+    public void goToAgentsPage(){
         agentsButton.click();
     }
 

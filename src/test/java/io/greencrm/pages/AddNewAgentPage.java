@@ -38,9 +38,25 @@ public class AddNewAgentPage extends BasePage {
     public void markSendEmailChceckbox(){
         this.mailCheckbox.click();
     }
+
     public void submittingNewAgentForm(){
         this.submitButton.click();
     }
 
+    public void fillFirstNameInput(String firstName) {
+        this.firstNameInput.sendKeys(firstName);
+    }
+
+    public void fillLastNameInput(String lastName) {
+        this.lastNameInput.sendKeys(lastName);
+    }
+
+    public void fillEmailInput(String email) {
+        this.emailInput.sendKeys(email);
+    }
+
+    public void getPhoneInput(String phone) {
+        this.phoneInput.sendKeys(phone);
+    }
 }
 

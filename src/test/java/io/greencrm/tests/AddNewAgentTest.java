@@ -10,13 +10,22 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.Assertion;
+import org.testng.asserts.SoftAssert;
 
 import java.util.concurrent.TimeUnit;
 
 public class AddNewAgentTest {
 
-    WebDriver driver;
+    private WebDriver driver;
+    private SoftAssert softAssert;
+    private LoginPage loginPage;
+    private SidebarPage sidebarPage;
+    private AgentsPage agentsPage ;
+    private AddNewAgentPage addNewAgentPage;
+
     @BeforeEach
     public void setup()
     {  ChromeOptions chromeOptions = new ChromeOptions();
@@ -25,23 +34,25 @@ public class AddNewAgentTest {
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        LoginPage loginPage = new LoginPage(driver);
+        SidebarPage sidebarPage = new SidebarPage(driver);
+        AgentsPage agentsPage = new AgentsPage(driver);
+        AddNewAgentPage addNewAgentPage = new AddNewAgentPage(driver);
+        SoftAssert softAssert = new SoftAssert();
+        Assert assert = new Assert
     }
 
 
   @Test
  public void email_exists_should_not_create_new_agent()  {
 
-
-        LoginPage loginPage = new LoginPage(driver);
-        SidebarPage sidebarPage = new SidebarPage(driver);
-        AgentsPage agentsPage = new AgentsPage(driver);
-        AddNewAgentPage addNewAgentPage = new AddNewAgentPage(driver);
-
-
-        loginPage.logIn();
-        sidebarPage.openAgentsPage();
-        agentsPage.openNewAgentForm();
-        addNewAgentPage.fillNewAgentForm("Jan", "Kowalski", "example@wp.pls", "1000200300");
+      loginPage.logIn();
+        sidebarPage.goToAgentsPage();
+        agentsPage.goToNewAgentForm();
+        addNewAgentPage.fillNewAgentForm("Jan",
+                                        "Kowalski",
+                                        "example@wp.pls",
+                                        "1000200300");
         addNewAgentPage.markSendEmailChceckbox();
         addNewAgentPage.submittingNewAgentForm();
 
@@ -63,6 +74,20 @@ public class AddNewAgentTest {
 @Test
  public void name_input_validation_should_show_proper_notification(){
 
+    loginPage.logIn();
+    sidebarPage.goToAgentsPage();
+    agentsPage.goToNewAgentForm();
+
+    addNewAgentPage.fillFirstNameInput("a");
+    addNewAgentPage.submittingNewAgentForm();
+    String moreThanTwoSignsError = driver.findElement(By.className("ant-form-item-explain-error")).getText();
+    softAssert.assertEquals(moreThanTwoSignsError,"Pole powinno składać się z co najmniej 2 znaków","Komunikat bledu jest nieprawidlowy");
+
+    addNewAgentPage.fillFirstNameInput("23");
+    String onlyLettersError = driver.findElement(By.className("ant-form-item-explain-error")).getText();
+    softAssert.assertEquals(onlyLettersError,"Pole może składać się jedynie z liter","Komunikat bledu jest nieprawidlowy");
+
+    softAssert.assertAll();
 }
 
 
@@ -75,7 +100,7 @@ public class AddNewAgentTest {
 
 
     loginPage.logIn();
-    sidebarPage.openAgentsPage();
+    sidebarPage.goToAgentsPage();
 
 }
 
