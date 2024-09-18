@@ -29,7 +29,7 @@ public class AddNewAgentTest {
 
 
   @Test
- public void emailExistsTest()  {
+ public void email_exists_should_not_create_new_agent()  {
 
 
         LoginPage loginPage = new LoginPage(driver);
@@ -45,18 +45,40 @@ public class AddNewAgentTest {
         addNewAgentPage.markSendEmailChceckbox();
         addNewAgentPage.submittingNewAgentForm();
 
-        WebElement notification = driver.findElement(By.className("ant-notification-notice-description"));
+        WebElement notification = driver.findElement(By.className("ant-notification-notice-content"));
 
         String notificationText = notification.getText();
 
         System.out.println(notificationText);
         Assertion assertion = new Assertion();
 
-        assertion.assertEquals(notificationText, "Podany e-mail istnieje już w systemie");
+        assertion.assertEquals(notificationText, "Błąd\n" +
+                "Podany e-mail istnieje już w systemie");
 
 
 
     }
+
+
+@Test
+ public void name_input_validation_should_show_proper_notification(){
+
+}
+
+
+@Test
+    public void testy(){
+    LoginPage loginPage = new LoginPage(driver);
+    SidebarPage sidebarPage = new SidebarPage(driver);
+    AgentsPage agentsPage = new AgentsPage(driver);
+    AddNewAgentPage addNewAgentPage = new AddNewAgentPage(driver);
+
+
+    loginPage.logIn();
+    sidebarPage.openAgentsPage();
+
+}
+
 
 
 }

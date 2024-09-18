@@ -5,6 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 
 public class LoginPage  extends BasePage{
@@ -18,7 +22,7 @@ public class LoginPage  extends BasePage{
     @FindBy(css ="[class='ant-btn ant-btn-primary ant-btn-lg button_3va6S']")
     private WebElement loginButton;
 
-    @FindBy(className = "ant-notification-close-icon")
+    @FindBy(className = "ant-notification-notice-close")
     private WebElement notification;
 
 
@@ -36,10 +40,11 @@ public class LoginPage  extends BasePage{
 
     public void logIn(){
        driver.get(getTestUrl());
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         this.loginInput.sendKeys(login);
         this.passwordInput.sendKeys(password);
         this.loginButton.click();
-        this.notification.click();
+        wait.until(ExpectedConditions.elementToBeClickable(this.notification)).click();
     }
 
     public void setLogin(String login){

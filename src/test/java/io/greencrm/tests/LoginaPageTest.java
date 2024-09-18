@@ -17,7 +17,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 
-public class LoginaPageTest  {
+public class LoginaPageTest   {
 
     WebDriver driver;
     String testUrl = "https://test.greencrm.dev/";
