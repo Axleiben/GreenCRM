@@ -1,126 +1,83 @@
 package io.greencrm.pages;
 
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-import java.util.List;
+public class AgentsPage extends BasePage {
 
+    @FindBy(xpath ="//button/span[text()=\"Dodaj nowego agenta\"]" )
+        private WebElement addNewAgentButton;
 
-public class AgentsPage {
-
-    @FindBy(xpath = "//button/span[text()=\"Dodaj nowego agenta\"]")
-    private WebElement addNewAgentButton;
-
-    @FindBy(name = "fullName")
+    @FindBy(name="fullName" )
     private WebElement findAgentInput;
 
     @FindBy(xpath = "//tr[2]/td[5]/div")
-    private WebElement editButton;
+        private WebElement editButton;
 
-    @FindBy(xpath = "//div/span[@class='ant-select-selection-search']")
-    private WebElement statusDropdown;
+    @FindBy(className = "editItemBox_1uaU4'")
+        private WebElement changeAccountStatusButton;
 
-    @FindBy(xpath = "//div[@label='Aktywne']")
-    private WebElement activeStatus;
+    @FindBy(xpath ="//div/span[@class='ant-select-selection-search']" )
+        private WebElement statusDropdown;
 
-    @FindBy(xpath = "//div[@label='Nieaktywowane']")
+    @FindBy(xpath = "//div[@label='Aktywne']" )
+        private WebElement activeStatus;
+
+    @FindBy(xpath = "//div[@label='Nieaktywowane']" )
     private WebElement inactiveStatus;
 
-    @FindBy(xpath = "//div[@label='Zablokowane']")
+    @FindBy(xpath = "//div[@label='Zablokowane']" )
     private WebElement blockedStatus;
 
     @FindBy(css = "button[class='ant-btn ant-btn-primary ant-btn-lg']")
     private WebElement filterButton;
 
-    @FindBy(xpath = "//tbody/tr/td/div[text()='Edytuj']")
-    private WebElement editAgentButton;
 
-    @FindBy(xpath = "//tbody/tr/td/div/span[@class='editItemText_e7aMq']")
-    private List<WebElement> statusLabel;
+     public AgentsPage (WebDriver driver) {
+         super(driver);
+         PageFactory.initElements(driver,this);}
 
-    @FindBy(xpath = "//tbody/tr/td/div/span[@aria-label='edit']")
-    private List<WebElement> statusEditButton;
+    public void goToNewAgentForm(){
 
-    @FindBy(css = "button.ant-btn.ant-btn-link")
-    private WebElement switchStatusButton;
-
-
-    private String statusText= "//div[@class='ant-col ant-col-14']/span[last()]";
-
-    @FindBy(xpath = "//span[text()='Zapisz']")
-    private WebElement submit;
-
-    private WebDriver driver;
-
-    public AgentsPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+         addNewAgentButton.click();
     }
 
-    public void openNewAgentForm() {
+    public void findAgent(String agentName ){
 
-        addNewAgentButton.click();
-    }
-
-    public void findAgent(String agentName) {
-
-        findAgentInput.sendKeys(agentName);
+         findAgentInput.sendKeys(agentName);
     }
 
 
-    public void openAgentEditForm() {
+    public void openAgentEditForm(){
 
-        editButton.click();
+         editButton.click();
     }
 
+    public void openAccountChangeStatusWindow(){
 
-    public void searchingStatus(String status) {
-        statusDropdown.click();
+         changeAccountStatusButton.click();
+    }
 
-        switch (status) {
-            case "Aktywne" -> activeStatus.click();
-            case "Nieakatywne" -> inactiveStatus.click();
-            case "Zablokowane" -> blockedStatus.click();
-            default -> System.out.println("Zła nazwa statusu");
-        }
+    public void searchingStatus(String status){
+         statusDropdown.click();
+
+         switch(status){
+             case "Aktywne":
+                 activeStatus.click();
+                break;
+             case "Nieakatywne":
+                 inactiveStatus.click();
+                 break;
+             case "Zablokowane":
+                 blockedStatus.click();
+                 break;
+             default:
+                 System.out.println("Zła nazwa statusu");
+                 break;
+         }
 
         filterButton.click();
     }
-
-    public void openEditForm() {
-        editAgentButton.click();
-    }
-
-    public void setActiveStatus() {
-
-        Actions actions = new Actions(driver);
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        statusLabel.stream().findFirst().
-                ifPresent(e -> actions.moveToElement(e).perform());
-
-        statusEditButton.stream().findFirst()
-                .ifPresent(WebElement::click);
-
-        String text = wait.until(ExpectedConditions.visibilityOfElementLocated
-                        (By.xpath(String.valueOf(statusText))))
-                .getText();
-
-        if (text.equalsIgnoreCase("Konto jest aktywne")) {
-            System.out.println("Konto jest aktywne nie trzeba go zmieniać");
-        } else {
-            switchStatusButton.click();
-            submit.click();
-        }
-    }
-
-
 }
