@@ -3,20 +3,24 @@ package io.greencrm.tests;
 import io.greencrm.pages.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
 import org.testng.asserts.*;
 
 
 import java.time.Duration;
-
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class Testing   {
@@ -24,30 +28,35 @@ public class Testing   {
     WebDriver driver;
     @BeforeEach
     public void setup()
-    {  WebDriver driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    {  ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--disable-search-engine-choice-screen");
+        chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        driver = new ChromeDriver(chromeOptions);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+
+
+
     }
     @Test
-
     public void testPage()  {
-
-
-
 
     LoginPage loginPage = new LoginPage(driver);
     SidebarPage sidebarPage = new SidebarPage(driver);
     AgentsPage agentsPage = new AgentsPage(driver);
-    AddNewAgentPage addNewAgentPage = new AddNewAgentPage(driver);
-
 
     loginPage.logIn();
-    WebElement a = driver.findElement(By.className("ant-notification-close-x"));
-    a.click();
     sidebarPage.goToAgentsPage();
-    agentsPage.goToNewAgentForm();
-    addNewAgentPage.fillNewAgentForm("Jan","Kowalski", "example@wp.pls","1000200300");
-    addNewAgentPage.markSendEmailChceckbox();
-    addNewAgentPage.submittingNewAgentForm();
+
+    WebElement tabela = driver.findElement(By.className("ant-table-tbody"));
+        List<WebElement> wiersze = tabela.findElements(By.tagName("tr"));
+
+        for(WebElement wiersz : wiersze){
+            System.out.println(wiersz.getText());
+        }
+
+
+
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
     WebElement notification = driver.findElement(By.className("ant-notification-notice-description"));

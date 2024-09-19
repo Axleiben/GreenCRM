@@ -4,9 +4,7 @@ import io.greencrm.pages.BasePage;
 import io.greencrm.pages.LoginPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.PageLoadStrategy;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -43,10 +41,11 @@ public class LoginaPageTest   {
 
     }
     @Test
-    public void wrong_login_should_be_correct_message(){
+    public void wrong_login_should_be_correct_message()  {
         LoginPage loginPage = new LoginPage(driver);
         driver.get(testUrl);
-        loginPage.setLogin("adddad");
+
+        loginPage.getLoginInput().sendKeys("dsdsd");
         loginPage.setPassword("Avocado1357!#");
         loginPage.loginButton();
 

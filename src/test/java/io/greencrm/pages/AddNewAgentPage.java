@@ -47,6 +47,10 @@ public class AddNewAgentPage extends BasePage {
         this.firstNameInput.sendKeys(firstName);
     }
 
+    public WebElement getFirstNameInput() {
+        return this.firstNameInput;
+    }
+
     public void fillLastNameInput(String lastName) {
         this.lastNameInput.sendKeys(lastName);
     }
@@ -58,5 +62,6 @@ public class AddNewAgentPage extends BasePage {
     public void getPhoneInput(String phone) {
         this.phoneInput.sendKeys(phone);
     }
+
 }
 

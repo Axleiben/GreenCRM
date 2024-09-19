@@ -51,6 +51,10 @@ public class LoginPage  extends BasePage{
         this.loginInput.sendKeys(login);
     }
 
+    public WebElement getLoginInput() {
+        return loginInput;
+    }
+
     public void setPassword(String password){
         this.passwordInput.sendKeys(password);
     }

@@ -3,15 +3,9 @@ package io.greencrm.tests;
 import io.greencrm.pages.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.PageLoadStrategy;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.SoftAssert;
 
@@ -26,20 +20,22 @@ public class AddNewAgentTest {
     private AgentsPage agentsPage ;
     private AddNewAgentPage addNewAgentPage;
 
+
     @BeforeEach
     public void setup()
     {  ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--disable-search-engine-choice-screen");
-        chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
-        driver = new ChromeDriver(chromeOptions);
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        LoginPage loginPage = new LoginPage(driver);
-        SidebarPage sidebarPage = new SidebarPage(driver);
-        AgentsPage agentsPage = new AgentsPage(driver);
-        AddNewAgentPage addNewAgentPage = new AddNewAgentPage(driver);
-        SoftAssert softAssert = new SoftAssert();
-        Assert assert = new Assert
+         chromeOptions.addArguments("--disable-search-engine-choice-screen");
+         chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+         driver = new ChromeDriver(chromeOptions);
+         driver.manage().window().maximize();
+         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+         loginPage = new LoginPage(driver);
+         sidebarPage = new SidebarPage(driver);
+         agentsPage = new AgentsPage(driver);
+         addNewAgentPage = new AddNewAgentPage(driver);
+         softAssert = new SoftAssert();
+
+
     }
 
 
@@ -78,16 +74,23 @@ public class AddNewAgentTest {
     sidebarPage.goToAgentsPage();
     agentsPage.goToNewAgentForm();
 
-    addNewAgentPage.fillFirstNameInput("a");
+    addNewAgentPage.getFirstNameInput().sendKeys("a");
     addNewAgentPage.submittingNewAgentForm();
     String moreThanTwoSignsError = driver.findElement(By.className("ant-form-item-explain-error")).getText();
     softAssert.assertEquals(moreThanTwoSignsError,"Pole powinno składać się z co najmniej 2 znaków","Komunikat bledu jest nieprawidlowy");
+    addNewAgentPage.getFirstNameInput().clear();
+    addNewAgentPage.getFirstNameInput().sendKeys("23");
 
-    addNewAgentPage.fillFirstNameInput("23");
     String onlyLettersError = driver.findElement(By.className("ant-form-item-explain-error")).getText();
     softAssert.assertEquals(onlyLettersError,"Pole może składać się jedynie z liter","Komunikat bledu jest nieprawidlowy");
+    addNewAgentPage.getFirstNameInput().sendKeys(Keys.CONTROL + "a" +Keys.DELETE);
+
+    addNewAgentPage.fillFirstNameInput("   ");
+    String noWhiteSignsError = driver.findElement(By.className("ant-form-item-explain-error")).getText();
+    softAssert.assertEquals(noWhiteSignsError,"Pole nie może składać się z pustych znaków","Komunikat bledu jest nieprawidlowy");
 
     softAssert.assertAll();
+
 }
 
 

@@ -60,24 +60,27 @@ public class AgentsPage extends BasePage {
          changeAccountStatusButton.click();
     }
 
-    public void searchingStatus(String status){
-         statusDropdown.click();
+    public void searchingStatus(String status) {
+        statusDropdown.click();
 
-         switch(status){
-             case "Aktywne":
-                 activeStatus.click();
+        switch (status) {
+            case "Aktywne":
+                activeStatus.click();
                 break;
-             case "Nieakatywne":
-                 inactiveStatus.click();
-                 break;
-             case "Zablokowane":
-                 blockedStatus.click();
-                 break;
-             default:
-                 System.out.println("Zła nazwa statusu");
-                 break;
-         }
+            case "Nieakatywne":
+                inactiveStatus.click();
+                break;
+            case "Zablokowane":
+                blockedStatus.click();
+                break;
+            default:
+                System.out.println("Zła nazwa statusu");
+                break;
+        }
 
         filterButton.click();
+    }
+    public void clickOnFilterButton(){
+         this.filterButton.click();
     }
 }
