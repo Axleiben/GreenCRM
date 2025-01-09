@@ -17,15 +17,23 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.*;
 
 
+import javax.crypto.spec.PSource;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
 public class Testing   {
 
-    WebDriver driver;
+    private WebDriver driver;
+    private SoftAssert softAssert;
+    private LoginPage loginPage;
+    private SidebarPage sidebarPage;
+    private AgentsPage agentsPage ;
+    private AddNewAgentPage addNewAgentPage;
+
     @BeforeEach
     public void setup()
     {  ChromeOptions chromeOptions = new ChromeOptions();
@@ -33,17 +41,18 @@ public class Testing   {
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        loginPage = new LoginPage(driver);
+        sidebarPage = new SidebarPage(driver);
+        agentsPage = new AgentsPage(driver);
+        addNewAgentPage = new AddNewAgentPage(driver);
+        softAssert = new SoftAssert();
 
 
     }
+
     @Test
     public void testPage()  {
-
-    LoginPage loginPage = new LoginPage(driver);
-    SidebarPage sidebarPage = new SidebarPage(driver);
-    AgentsPage agentsPage = new AgentsPage(driver);
 
     loginPage.logIn();
     sidebarPage.goToAgentsPage();
@@ -54,24 +63,16 @@ public class Testing   {
         for(WebElement wiersz : wiersze){
             System.out.println(wiersz.getText());
         }
+        Optional<WebElement> editButton = wiersze.stream()
+                .filter(e -> e.getText().contains("Edytuj")) // Sprawdzanie, czy tekst wiersza zawiera "Edytuj"
+                .findFirst();
 
 
+        System.out.println(editButton);
 
-
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-    WebElement notification = driver.findElement(By.className("ant-notification-notice-description"));
-
-    String notificationText = notification.getText();
-
-    System.out.println(notificationText);
-    Assertion assertion = new Assertion();
-   assertion.assertEquals(notificationText,"Podany e-mail istnieje już w systemie");
-
-
-
+        WebElement ed = driver.findElement(By.linkText("Edytuj"));
+        System.out.println(ed);
 
     }
-
-
 
 }

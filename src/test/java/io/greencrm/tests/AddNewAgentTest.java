@@ -55,10 +55,8 @@ public class AddNewAgentTest {
         WebElement notification = driver.findElement(By.className("ant-notification-notice-content"));
 
         String notificationText = notification.getText();
-
         System.out.println(notificationText);
         Assertion assertion = new Assertion();
-
         assertion.assertEquals(notificationText, "Błąd\n" +
                 "Podany e-mail istnieje już w systemie");
 
@@ -79,8 +77,8 @@ public class AddNewAgentTest {
     String moreThanTwoSignsError = driver.findElement(By.className("ant-form-item-explain-error")).getText();
     softAssert.assertEquals(moreThanTwoSignsError,"Pole powinno składać się z co najmniej 2 znaków","Komunikat bledu jest nieprawidlowy");
     addNewAgentPage.getFirstNameInput().clear();
-    addNewAgentPage.getFirstNameInput().sendKeys("23");
 
+    addNewAgentPage.getFirstNameInput().sendKeys("23");
     String onlyLettersError = driver.findElement(By.className("ant-form-item-explain-error")).getText();
     softAssert.assertEquals(onlyLettersError,"Pole może składać się jedynie z liter","Komunikat bledu jest nieprawidlowy");
     addNewAgentPage.getFirstNameInput().sendKeys(Keys.CONTROL + "a" +Keys.DELETE);
