@@ -5,59 +5,78 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import javax.swing.*;
+
 public class AgentsPage extends BasePage {
 
-    @FindBy(xpath ="//button/span[text()=\"Dodaj nowego agenta\"]" )
-        private WebElement addNewAgentButton;
+    @FindBy(xpath = "//button/span[text()=\"Dodaj nowego agenta\"]")
+    private WebElement addNewAgentButton;
 
-    @FindBy(name="fullName" )
+    @FindBy(name = "fullName")
     private WebElement findAgentInput;
 
     @FindBy(xpath = "//tr[2]/td[5]/div")
-        private WebElement editButton;
+    private WebElement editButton;
 
-    @FindBy(className = "editItemBox_1uaU4'")
-        private WebElement changeAccountStatusButton;
+    @FindBy(className = "editItemText_e7aMq")
+    private WebElement changeAccountStatusButton;
 
-    @FindBy(xpath ="//div/span[@class='ant-select-selection-search']" )
-        private WebElement statusDropdown;
+    @FindBy(xpath = "//div/span[@class='ant-select-selection-search']")
+    private WebElement statusDropdown;
 
-    @FindBy(xpath = "//div[@label='Aktywne']" )
-        private WebElement activeStatus;
+    @FindBy(xpath = "//div[@label='Aktywne']")
+    private WebElement activeStatus;
 
-    @FindBy(xpath = "//div[@label='Nieaktywowane']" )
+    @FindBy(xpath = "//div[@label='Nieaktywowane']")
     private WebElement inactiveStatus;
 
-    @FindBy(xpath = "//div[@label='Zablokowane']" )
+    @FindBy(xpath = "//div[@label='Zablokowane']")
     private WebElement blockedStatus;
 
     @FindBy(css = "button[class='ant-btn ant-btn-primary ant-btn-lg']")
     private WebElement filterButton;
 
+    @FindBy(className = "editedTradersItemIcon_1o5h_")
+    private WebElement penButton;
 
-     public AgentsPage (WebDriver driver) {
-         super(driver);
-         PageFactory.initElements(driver,this);}
+    @FindBy(className = "ant-btn-link")
+    private WebElement modalChangeStatus;
 
-    public void goToNewAgentForm(){
+    @FindBy(xpath = "//button[@class =\"ant-btn ant-btn-lg\"]")
+    private WebElement modalCancelButton;
 
-         addNewAgentButton.click();
+    @FindBy(xpath = "//div[@class =\"ant-modal-footer\"]/button[@class =\"ant-btn ant-btn-primary ant-btn-lg\"]")
+    private WebElement modalSaveButton;
+
+
+    public AgentsPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    public void findAgent(String agentName ){
+    public void goToNewAgentForm() {
 
-         findAgentInput.sendKeys(agentName);
+        this.addNewAgentButton.click();
+    }
+
+    public void findAgent(String agentName) {
+
+        this.findAgentInput.sendKeys(agentName);
     }
 
 
-    public void openAgentEditForm(){
+    public void openAgentEditForm() {
 
-         editButton.click();
+        this.editButton.click();
     }
 
-    public void openAccountChangeStatusWindow(){
+    public void openAccountChangeStatusWindow() {
 
-         changeAccountStatusButton.click();
+        this.penButton.click();
+    }
+
+    public WebElement getChangeAccountStatusButton() {
+        return changeAccountStatusButton;
     }
 
     public void searchingStatus(String status) {
@@ -67,7 +86,7 @@ public class AgentsPage extends BasePage {
             case "Aktywne":
                 activeStatus.click();
                 break;
-            case "Nieakatywne":
+            case "Nieaktywne":
                 inactiveStatus.click();
                 break;
             case "Zablokowane":
@@ -80,7 +99,38 @@ public class AgentsPage extends BasePage {
 
         filterButton.click();
     }
-    public void clickOnFilterButton(){
-         this.filterButton.click();
+
+    public void clickOnFilterButton() {
+        this.filterButton.click();
+    }
+
+    public WebElement getPenButton() {
+        return penButton;
+    }
+
+    public void clickOnModalStatusButton() {
+        this.modalChangeStatus.click();
+    }
+
+    public void clickOnModalCancelButton() {
+        this.modalCancelButton.click();
+    }
+
+    public void clickOnModalSaveButton() {
+        this.modalSaveButton.click();
+    }
+
+    public WebElement getModalChangeStatus() {
+        return modalChangeStatus;
+    }
+
+    public WebElement getModalCancelButton() {
+        return modalCancelButton;
+    }
+
+    public WebElement getModalSaveButton() {
+        return modalSaveButton;
     }
 }
+
+

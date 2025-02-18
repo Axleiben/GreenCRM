@@ -9,13 +9,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterTest;
 import org.testng.asserts.Assertion;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 
-public class LoginaPageTest   {
+public class LoginaPageTest  {
 
     WebDriver driver;
     String testUrl = "https://test.greencrm.dev/";
@@ -30,6 +31,12 @@ public class LoginaPageTest   {
         driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
+    }
+
+    @AfterTest
+    public void quit()
+    {
+        driver.quit();
     }
 
     @Test

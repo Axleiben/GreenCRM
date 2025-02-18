@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterTest;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.SoftAssert;
 
@@ -38,7 +39,11 @@ public class AddNewAgentTest {
 
     }
 
-
+    @AfterTest
+    public void quit()
+    {
+        driver.quit();
+    }
   @Test
  public void email_exists_should_not_create_new_agent()  {
 
