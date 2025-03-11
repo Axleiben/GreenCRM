@@ -2,8 +2,7 @@ package io.greencrm.tests;
 
 import io.greencrm.pages.AddNewAgentPage;
 import io.greencrm.pages.AgentsPage;
-import io.greencrm.pages.LoginPage;
-import io.greencrm.pages.SidebarPage;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -12,8 +11,6 @@ import org.openqa.selenium.WebElement;
 
 public class AddNewAgentTest  extends BaseTest{
 
-    private LoginPage loginPage;
-    private SidebarPage sidebarPage;
     private AgentsPage agentsPage ;
     private AddNewAgentPage addNewAgentPage;
 
@@ -21,8 +18,6 @@ public class AddNewAgentTest  extends BaseTest{
     @BeforeEach
     public void initial()
     {
-         loginPage = new LoginPage(driver);
-         sidebarPage = new SidebarPage(driver);
          agentsPage = new AgentsPage(driver);
          addNewAgentPage = new AddNewAgentPage(driver);
     }
