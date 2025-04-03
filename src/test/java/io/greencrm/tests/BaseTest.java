@@ -1,5 +1,7 @@
 package io.greencrm.tests;
 
+import io.greencrm.pages.LoginPage;
+import io.greencrm.pages.SidebarPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
@@ -33,6 +35,8 @@ public class BaseTest {
     protected  Assertion assertion;
     protected SoftAssert softAssert;
     protected Actions action;
+    protected LoginPage loginPage;
+    protected SidebarPage sidebarPage;
     protected  String testUrl = "https://test.greencrm.dev/";
 
     @BeforeEach
@@ -48,6 +52,8 @@ public class BaseTest {
         assertion = new Assertion();
         softAssert = new SoftAssert();
         action = new Actions(driver);
+        loginPage = new LoginPage(driver);
+        sidebarPage = new SidebarPage(driver);
     }
 
     @RegisterExtension

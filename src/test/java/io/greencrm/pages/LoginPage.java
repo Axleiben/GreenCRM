@@ -25,8 +25,6 @@ public class LoginPage  extends BasePage{
     @FindBy(className = "ant-notification-notice-close")
     private WebElement notification;
 
-
-
     protected final String login ="Melania@wp.pl";
     protected final String password ="Avocado1357!#";
 

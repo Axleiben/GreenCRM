@@ -1,7 +1,4 @@
 package io.greencrm.tests;
-
-import io.greencrm.pages.LoginPage;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,13 +6,6 @@ import org.testng.asserts.Assertion;
 
 
 public class LoginaPageTest extends BaseTest {
-
-     LoginPage loginPage ;
-
-    @BeforeEach
-    public void initial() {
-        loginPage = new LoginPage(driver);
-    }
 
     @Test
             public void login_test_positive(){
